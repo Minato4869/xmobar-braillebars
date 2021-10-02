@@ -28,9 +28,9 @@ main = do
   let numCPUs    = length oldstat
   let numBars    = div (numCPUs + 3) 4
   let delimiters = map (\a -> [a]) $ if numCPUs <= 4
-      then ["\10248\10241","\10264\10243","\10296\10247","\10424\10311"]!!(numCPUs - 1)
-      else '\10424'
-           : (replicate (max 0 (numBars - 2)) '\10495')
+      then ["\10248\10241","\10264\10243","\10296\10247","\10424\10311"]!!(numCPUs - 1) 
+      else '\10424' 
+           : (replicate (max 0 (numBars - 2)) '\10495') 
            ++ (["\10495\10311","\10319\10241","\10335\10243","\10367\10247"]!!(mod numCPUs 4))
   forever $ do
     threadDelay delay
@@ -39,15 +39,15 @@ main = do
     let !load = zipWith coreLoad oldstat newstat
     writeIORef stat newstat
     let bars = map (brailleBar meterDots) $ chunksOf4 $ map (numDots meterDots) $ load
-    let coloredBars = flip map bars $ (\bar ->
+    let coloredBars = flip map bars $ (\bar -> 
                         let (lowstr, temp) = splitAt lowLength bar in
-                        let (medstr, histr) = splitAt mediumLength temp in concat
+                        let (medstr, histr) = splitAt mediumLength temp in concat 
                         [ "<fc=", lowColor, ">", lowstr, "</fc>"
                         , "<fc=", mediumColor, ">", medstr, "</fc>"
                         , "<fc=", highColor, ">", histr, "</fc>"
                         ])
-    putStr "CPU "
-    mapM_ putStr $ coloredBars -- $ interleave delimiters coloredBars
+    putStr "CPU"
+    mapM_ putStr $ interleave delimiters coloredBars
     putChar '\n'
     hFlush stdout
 
