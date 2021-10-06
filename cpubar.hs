@@ -10,7 +10,7 @@ import System.IO
 import Data.IORef
 import BrailleBar
 
-meterChars   = 4
+meterChars   = 16
 meterDots    = 2*meterChars
 lowLength    = div meterChars 2
 mediumLength = div meterChars 4
@@ -46,7 +46,7 @@ main = do
                         , "<fc=", mediumColor, ">", medstr, "</fc>"
                         , "<fc=", highColor, ">", histr, "</fc>"
                         ])
-    putStr "CPU"
+    putStr "" -- "CPU"
     mapM_ putStr $ interleave delimiters coloredBars
     putChar '\n'
     hFlush stdout
